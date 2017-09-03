@@ -1,0 +1,40 @@
+:host {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.bk-project-panel {
+    background-color: #F7F7F7;
+    height: 100%;
+}
+
+.bk-split-divider {
+    display: flex;
+    height: 100%;
+    cursor: ew-resize;
+    pointer-events: initial;
+}
+
+.bk-split-divider :nth-child(1){
+    width: 2px;
+    height: 100%;
+    background-color: #F7F7F7;
+}
+
+.bk-split-divider :nth-child(2){
+    width: 2px;
+    height: 100%;
+    background-color: #dfdfdf;
+}
+
+.bk-split-divider :nth-child(3){
+    width: 2px;
+    height: 100%;
+    background-color: white;
+}
+
+.bk-content-panel {
+    flex-grow: 1;
+    background-color: white;
+}

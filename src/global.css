@@ -1,0 +1,7 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+    cursor: default;
+    font-family: 'Roboto', 'Source Sans Pro', sans-serif;
+    pointer-events: none;
+}

@@ -1,0 +1,73 @@
+{
+  "name": "backup",
+  "productName": "backup",
+  "version": "1.0.0",
+  "description": "Backup utility",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "tslint src"
+  },
+  "keywords": [],
+  "author": "Sergio Milla",
+  "license": "",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm"
+      },
+      "electronWinstallerConfig": {
+        "name": "backup"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "backup"
+      }
+    }
+  },
+  "dependencies": {
+    "@angular/common": "^4.3.4",
+    "@angular/compiler": "^4.3.4",
+    "@angular/core": "^4.3.4",
+    "@angular/platform-browser": "^4.3.4",
+    "@angular/platform-browser-dynamic": "^4.3.4",
+    "electron-devtools-installer": "^2.2.1",
+    "reflect-metadata": "^0.1.10",
+    "tslib": "^1.8.0",
+    "zone.js": "^0.8.16",
+    "electron-compile": "^6.4.2",
+    "electron-squirrel-startup": "^1.0.0",
+    "ng-inline-svg": "^5.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "electron": "^1.7.9",
+    "electron-forge": "file:../electron-forge",
+    "electron-prebuilt-compile": "1.7.9",
+    "tslint": "^4.5.1",
+    "typescript": "^2.4.2"
+  }
+}

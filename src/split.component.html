@@ -1,0 +1,15 @@
+<div class="bk-project-panel" [style.width.px]="width">
+    <div>PROJECTS</div>
+    <div>Test</div>
+</div>
+<div class="bk-split-divider"
+    (mousedown)="startDrag($event)"
+    (window:mousemove)="move($event)"
+    (window:mouseup)="stopDrag($event)">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+<div class="bk-content-panel">
+    <div>Test</div>
+</div>
