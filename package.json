@@ -47,27 +47,31 @@
     }
   },
   "dependencies": {
-    "@angular/common": "^4.3.4",
-    "@angular/compiler": "^4.3.4",
-    "@angular/core": "^4.3.4",
-    "@angular/platform-browser": "^4.3.4",
-    "@angular/platform-browser-dynamic": "^4.3.4",
-    "electron-devtools-installer": "^2.2.1",
-    "reflect-metadata": "^0.1.10",
-    "tslib": "^1.8.0",
-    "zone.js": "^0.8.16",
-    "electron-compile": "^6.4.2",
-    "electron-squirrel-startup": "^1.0.0",
-    "ng-inline-svg": "^5.0.0"
+    "@angular/cdk": "5.0.2",
+    "@angular/common": "4.3.4",
+    "@angular/compiler": "4.3.4",
+    "@angular/core": "4.3.4",
+    "@angular/forms": "4.3.4",
+    "@angular/material": "5.0.2",
+    "@angular/animations": "5.0.2",
+    "@angular/platform-browser": "4.3.4",
+    "@angular/platform-browser-dynamic": "4.3.4",
+    "electron-compile": "6.4.2",
+    "electron-devtools-installer": "2.2.1",
+    "electron-squirrel-startup": "1.0.0",
+    "ng-inline-svg": "5.0.0",
+    "reflect-metadata": "0.1.10",
+    "tslib": "1.8.0",
+    "zone.js": "0.8.16"
   },
   "devDependencies": {
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "electron": "^1.7.9",
-    "electron-forge": "file:../electron-forge",
+    "babel-plugin-transform-async-to-generator": "6.24.1",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "electron": "1.7.9",
+    "electron-forge": "4.1.7",
     "electron-prebuilt-compile": "1.7.9",
-    "tslint": "^4.5.1",
-    "typescript": "^2.4.2"
+    "tslint": "4.5.1",
+    "typescript": "2.4.2"
   }
 }
