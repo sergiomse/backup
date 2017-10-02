@@ -1,0 +1,38 @@
+<div class="bk-empty-projects" *ngIf="isEmpty()">
+    <img src="../images/ic_floppy_disk.png">
+    <div class="bk-text">Create or select any project to start.</div>
+</div>
+<div class="bk-projects" *ngIf="!isEmpty()">
+    <mat-horizontal-stepper [linear]="true">
+        <mat-step >
+            <form >
+                <ng-template matStepLabel>Give it a name</ng-template>
+                <mat-form-field>
+                    <input matInput placeholder="Name" formControlName="nameCtrl" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+            <!--<form [formGroup]="secondFormGroup">-->
+                <!--<ng-template matStepLabel>Fill out your address</ng-template>-->
+                <!--<mat-form-field>-->
+                    <!--<input matInput placeholder="Address" formControlName="secondCtrl" required>-->
+                <!--</mat-form-field>-->
+                <!--<div>-->
+                    <!--<button mat-button matStepperPrevious>Back</button>-->
+                    <!--<button mat-button matStepperNext>Next</button>-->
+                <!--</div>-->
+            <!--</form>-->
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            You are now done.
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>
