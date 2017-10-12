@@ -4,34 +4,53 @@
 </div>
 <div class="bk-projects" *ngIf="!isEmpty()">
     <mat-horizontal-stepper [linear]="true">
-        <mat-step >
-            <form >
+        <mat-step [stepControl]="nameFormGroup">
+            <form [formGroup]="nameFormGroup">
                 <ng-template matStepLabel>Give it a name</ng-template>
                 <mat-form-field>
                     <input matInput placeholder="Name" formControlName="nameCtrl" required>
                 </mat-form-field>
                 <div>
+                    <button mat-raised-button matStepperNext color="accent">Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="configureFormGroup">
+            <form [formGroup]="configureFormGroup">
+                <ng-template matStepLabel>Configure it</ng-template>
+                <mat-form-field>
+                    <input matInput placeholder="Source folder" formControlName="sourceFolderCtrl" required>
+                </mat-form-field>
+                <br/>
+                <mat-form-field>
+                    <input matInput placeholder="Destination folder" formControlName="destinationFolderCtrl" required>
+                </mat-form-field>
+                <mat-card class="bk-project-exclude">
+                    <mat-card-title>Excluded folder patterns (RegExp):</mat-card-title>
+                    <mat-card-content>
+                        <div *ngFor="let pattern of patterns; let i = index" class="bk-pattern-item" [ngClass]="{'bk-patter-item-selected': i == selected}" (click)="selectItem(i)">
+                            <input type="text" value="{{pattern}}" (focus)="$event.target.select();">
+                            <button class="bk-item-delete" mat-raised-button (click)="delete(i)">X</button>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-footer>
+                        <mat-form-field>
+                            <input matInput placeholder="New pattern" formControlName="patternCtrl">
+                        </mat-form-field>
+                        <button mat-raised-button (click)="addPattern()">Add</button>
+                    </mat-card-footer>
+                </mat-card>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
                     <button mat-button matStepperNext>Next</button>
                 </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-            <!--<form [formGroup]="secondFormGroup">-->
-                <!--<ng-template matStepLabel>Fill out your address</ng-template>-->
-                <!--<mat-form-field>-->
-                    <!--<input matInput placeholder="Address" formControlName="secondCtrl" required>-->
-                <!--</mat-form-field>-->
-                <!--<div>-->
-                    <!--<button mat-button matStepperPrevious>Back</button>-->
-                    <!--<button mat-button matStepperNext>Next</button>-->
-                <!--</div>-->
-            <!--</form>-->
-        </mat-step>
         <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            You are now done.
+            Save to done
             <div>
-                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperPrevious>Save</button>
             </div>
         </mat-step>
     </mat-horizontal-stepper>

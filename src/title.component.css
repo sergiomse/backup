@@ -32,7 +32,6 @@ bk-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: initial;
 }
 
 .bk-title-buttons img {

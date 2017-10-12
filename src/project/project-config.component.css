@@ -3,7 +3,6 @@ project-config {
     height: 100%;
     justify-content: center;
     align-items: center;
-    pointer-events: initial;
 }
 
 .bk-empty-projects {
@@ -19,5 +18,41 @@ project-config {
 }
 
 .bk-projects {
-    margin: 20px;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.bk-project-exclude {
+    margin: 3px;
+    background-color: #f6f6f6;
+}
+
+.bk-project-exclude mat-card-title {
+    font-size: 1em;
+}
+
+.bk-pattern-item {
+    padding: 5px;
+    display: flex;
+}
+
+.bk-pattern-item:hover {
+    background-color: #cacaee;
+}
+
+.bk-patter-item-selected {
+    background-color: rgba(81, 13, 191, 0.27) !important;
+}
+
+.bk-pattern-item input {
+    outline: 0;
+    border-width: 0;
+    background-color: transparent;
+    cursor: text;
+    width: 100%;
+}
+
+.bk-item-delete {
+    width: 30px;
 }

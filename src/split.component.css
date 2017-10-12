@@ -13,7 +13,6 @@ bk-split {
     display: flex;
     height: 100%;
     cursor: ew-resize;
-    pointer-events: initial;
 }
 
 .bk-split-divider :nth-child(1){

@@ -25,7 +25,6 @@ project-panel {
     position: absolute !important;
     top: 30px;
     right: 10px;
-    pointer-events: initial;
 }
 
 .bk-project-content {

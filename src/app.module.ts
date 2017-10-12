@@ -6,10 +6,11 @@ import {RibbonComponent} from "./ribbon.component";
 import {InlineSVGModule} from "ng-inline-svg";
 import {HttpClientModule} from "@angular/common/http";
 import {SplitComponent} from "./split.component";
-import {MatButtonModule, MatInputModule, MatRippleModule, MatStepperModule} from "@angular/material";
+import {MatButtonModule, MatCardModule, MatInputModule, MatRippleModule, MatStepperModule} from "@angular/material";
 import {ProjectPanelComponent} from "./project/project-panel.component";
 import {ProjectConfigComponent} from "./project/project-config.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [
@@ -17,10 +18,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         InlineSVGModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatRippleModule,
         MatButtonModule,
         MatStepperModule,
-        MatInputModule
+        MatInputModule,
+        MatCardModule
     ],
     declarations: [
         AppComponent,

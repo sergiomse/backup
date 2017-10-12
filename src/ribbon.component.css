@@ -44,7 +44,6 @@ bk-ribbon {
     align-items: center;
     height: 70px;
     padding: 0 9px;
-    pointer-events: initial;
 }
 
 .bk-ribbon-vertical-button:hover {
