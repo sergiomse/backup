@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {PersistenceService} from "../services/persistence.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Project} from "../models/project.model";
+import {Router} from "@angular/router";
+import {remote} from 'electron';
 
 @Component({
     selector: 'project-config',
@@ -11,13 +14,14 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class ProjectConfigComponent implements OnInit {
     nameFormGroup: FormGroup;
     configureFormGroup: FormGroup;
-    patterns = [];
+    patterns: string[] = [];
     selected = -1;
     isEditMode = false;
     fistButtonText = 'Add';
 
-    constructor(private persistence: PersistenceService,
-                private _formBuilder: FormBuilder) {}
+    constructor(private _persistence: PersistenceService,
+                private _formBuilder: FormBuilder,
+                private _router: Router) {}
 
     ngOnInit() {
         this.nameFormGroup = this._formBuilder.group({
@@ -26,12 +30,8 @@ export class ProjectConfigComponent implements OnInit {
         this.configureFormGroup = this._formBuilder.group({
             sourceFolderCtrl: ['', Validators.required],
             destinationFolderCtrl: ['', Validators.required],
-            patternCtrl: ['']
+            patternCtrl: ''
         });
-    }
-
-    isEmpty(): boolean {
-        return this.persistence.getAllProjects().length == 0;
     }
 
     addPattern() {
@@ -45,7 +45,7 @@ export class ProjectConfigComponent implements OnInit {
 
         try {
             this.patterns.push(pattern);
-            patternCtrl.setValue('');
+            this.configureFormGroup.controls.patternCtrl.setValue('');
         } catch(e) {
             this.showError(e);
             return;
@@ -63,5 +63,24 @@ export class ProjectConfigComponent implements OnInit {
 
     delete(i: number) {
         this.patterns.splice(i, 1);
+    }
+
+    save() {
+        let project = new Project();
+        project.name = this.nameFormGroup.controls.nameCtrl.value;
+        this._persistence.insertProject(project);
+        this._router.navigate(['/message/..%2Fimages%2Fic_ok.png/Project%20saved%20correctly.'])
+    }
+
+    openDirectoryDialog(controlName: string) {
+        let mainWindow = remote.getCurrentWindow();
+        remote.dialog.showOpenDialog(mainWindow, {
+            properties: ['openDirectory']
+        },
+        paths => {
+            if (paths && paths.length > 0) {
+                this.configureFormGroup.get(controlName).setValue(paths[0]);
+            }
+        });
     }
 }

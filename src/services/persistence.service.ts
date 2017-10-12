@@ -1,11 +1,12 @@
 import {Injectable} from "@angular/core";
+import {Project} from "../models/project.model";
 
 @Injectable()
 export class PersistenceService {
 
     private PROJECTS_ITEM = "projects";
 
-    getAllProjects(): string[] {
+    getAllProjects(): [Project] {
         let projectsStr = localStorage.getItem(this.PROJECTS_ITEM);
         let projects;
         if (projectsStr == null) {
@@ -17,9 +18,9 @@ export class PersistenceService {
         return projects;
     }
 
-    insertProject(name: string): void {
+    insertProject(project: Project): void {
         let projects = this.getAllProjects();
-        projects.push(name);
+        projects.push(project);
         localStorage.setItem(this.PROJECTS_ITEM, JSON.stringify(projects));
     }
 

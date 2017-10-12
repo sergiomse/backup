@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PersistenceService} from "../services/persistence.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'project-panel',
@@ -9,17 +10,18 @@ import {PersistenceService} from "../services/persistence.service";
 })
 export class ProjectPanelComponent implements OnInit {
 
-    projects: string[] = [];
+    projectsNames: string[] = [];
 
-    constructor(private persistence: PersistenceService) {
+    constructor(private _persistence: PersistenceService,
+                private _router: Router) {
     }
 
     ngOnInit(): void {
-        this.projects = this.persistence.getAllProjects();
+        let projects = this._persistence.getAllProjects();
+        this.projectsNames = projects.map(p => p.name);
     }
 
     addProject(): void {
-        this.persistence.insertProject('Hola');
-        this.projects.push('Hola');
+        this._router.navigate(['/new-project']);
     }
 }

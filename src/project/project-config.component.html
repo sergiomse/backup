@@ -1,8 +1,4 @@
-<div class="bk-empty-projects" *ngIf="isEmpty()">
-    <img src="../images/ic_floppy_disk.png">
-    <div class="bk-text">Create or select any project to start.</div>
-</div>
-<div class="bk-projects" *ngIf="!isEmpty()">
+<div class="bk-projects">
     <mat-horizontal-stepper [linear]="true">
         <mat-step [stepControl]="nameFormGroup">
             <form [formGroup]="nameFormGroup">
@@ -19,12 +15,14 @@
             <form [formGroup]="configureFormGroup">
                 <ng-template matStepLabel>Configure it</ng-template>
                 <mat-form-field>
-                    <input matInput placeholder="Source folder" formControlName="sourceFolderCtrl" required>
+                    <input #sourceFolderCtrl matInput placeholder="Source folder" formControlName="sourceFolderCtrl" required>
                 </mat-form-field>
+                <button mat-raised-button (click)="openDirectoryDialog('sourceFolderCtrl')">...</button>
                 <br/>
                 <mat-form-field>
-                    <input matInput placeholder="Destination folder" formControlName="destinationFolderCtrl" required>
+                    <input #destinationFolderCtrl matInput placeholder="Destination folder" formControlName="destinationFolderCtrl" required>
                 </mat-form-field>
+                <button mat-raised-button (click)="openDirectoryDialog('destinationFolderCtrl')">...</button>
                 <mat-card class="bk-project-exclude">
                     <mat-card-title>Excluded folder patterns (RegExp):</mat-card-title>
                     <mat-card-content>
@@ -50,7 +48,7 @@
             <ng-template matStepLabel>Done</ng-template>
             Save to done
             <div>
-                <button mat-button matStepperPrevious>Save</button>
+                <button mat-button (click)="save()">Save</button>
             </div>
         </mat-step>
     </mat-horizontal-stepper>

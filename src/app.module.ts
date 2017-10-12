@@ -11,14 +11,17 @@ import {ProjectPanelComponent} from "./project/project-panel.component";
 import {ProjectConfigComponent} from "./project/project-config.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AppRoutingModule} from "./app-routing.module";
+import {MessagePanelComponent} from "./project/message-panel.component";
 
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
+        AppRoutingModule,
         InlineSVGModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        FormsModule,
         ReactiveFormsModule,
         MatRippleModule,
         MatButtonModule,
@@ -31,6 +34,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         TitleComponent,
         RibbonComponent,
         SplitComponent,
+        MessagePanelComponent,
         ProjectPanelComponent,
         ProjectConfigComponent
     ],
