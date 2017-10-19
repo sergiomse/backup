@@ -9,7 +9,7 @@ import {remote} from 'electron';
     selector: 'project-config',
     templateUrl: 'project/project-config.component.html',
     styleUrls: ['project/project-config.component.css'],
-    providers: [PersistenceService]
+    providers: []
 })
 export class ProjectConfigComponent implements OnInit {
     nameFormGroup: FormGroup;

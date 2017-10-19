@@ -3,5 +3,5 @@
 </div>
 <button mat-mini-fab color="accent" aria-label="Add project" (click)="addProject()">+</button>
 <div class="bk-project-content">
-    <div *ngFor="let project of projectsNames">{{project}}</div>
+    <div *ngFor="let project of projects">{{project.name}}</div>
 </div>

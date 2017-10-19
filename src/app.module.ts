@@ -13,10 +13,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppRoutingModule} from "./app-routing.module";
 import {MessagePanelComponent} from "./project/message-panel.component";
+import {CommonModule} from "@angular/common";
+import {PersistenceService} from "./services/persistence.service";
 
 @NgModule({
     imports: [
         BrowserModule,
+        CommonModule,
         FormsModule,
         AppRoutingModule,
         InlineSVGModule,
@@ -37,6 +40,9 @@ import {MessagePanelComponent} from "./project/message-panel.component";
         MessagePanelComponent,
         ProjectPanelComponent,
         ProjectConfigComponent
+    ],
+    providers: [
+        PersistenceService
     ],
     bootstrap: [AppComponent]
 })
