@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PersistenceService} from "../services/persistence.service";
 import {Router} from "@angular/router";
 import {Project} from "../models/project.model";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
     selector: 'project-panel',
@@ -11,20 +12,14 @@ import {Project} from "../models/project.model";
 })
 export class ProjectPanelComponent implements OnInit {
 
-    projects: Project[];
+    projects: BehaviorSubject<Array<Project>>;
 
     constructor(private _persistence: PersistenceService,
                 private _router: Router) {
     }
 
     ngOnInit(): void {
-        this.projects = this._persistence.getAllProjects();
-        this._persistence.subscribe(() => {
-            console.log('Subscriber called');
-            this.projects = this._persistence.getAllProjects()
-        });
-        // let projects = this._persistence.getAllProjects();
-        // this.projects = projects.map(p => p.name);
+        this.projects = this._persistence.projects;
     }
 
     addProject(): void {

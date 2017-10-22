@@ -1,31 +1,17 @@
 import {Injectable} from "@angular/core";
 import {Project} from "../models/project.model";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class PersistenceService {
 
-    private subscribers: Function[];
     private PROJECTS_ITEM = "projects";
-
-    // projectsObservable: Observable<[Project]> = Observable.create(observer => {
-    //     console.log(`observer ${observer}`);
-    //     observer.next(this.getAllProjects());
-    // });
-
+    projects: BehaviorSubject<Array<Project>>;
 
     constructor() {
         console.log('PersistenceService Created once');
-        this.subscribers = [];
-    }
-
-    subscribe(callback: Function) {
-        this.subscribers.push(callback);
-    }
-
-    notify() {
-        for (let i = 0; i < this.subscribers.length; i++) {
-            this.subscribers[i]();
-        }
+        // this.subscribers = [];
+        this.projects = new BehaviorSubject<Array<Project>>(this.getAllProjects());
     }
 
     getAllProjects(): Project[] {
@@ -44,7 +30,8 @@ export class PersistenceService {
         let projects = this.getAllProjects();
         projects.push(project);
         localStorage.setItem(this.PROJECTS_ITEM, JSON.stringify(projects));
-        this.notify();
+        // this.notify();
+        this.projects.next(projects);
     }
 
 }
