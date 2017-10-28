@@ -1,7 +1,9 @@
-<div class="bk-project-title">
-    <div>PROJECTS</div>
+<div class="bk-project-content2">
+    <div class="bk-project-title">
+        <div>PROJECTS</div>
+    </div>
+    <div class="bk-project-content">
+        <div *ngFor="let project of projects | async" class="bk-project-item">{{project.name}}</div>
+    </div>
 </div>
 <button mat-mini-fab color="accent" aria-label="Add project" (click)="addProject()">+</button>
-<div class="bk-project-content">
-    <div *ngFor="let project of projects | async">{{project.name}}</div>
-</div>

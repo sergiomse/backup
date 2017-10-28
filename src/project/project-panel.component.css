@@ -4,10 +4,21 @@ project-panel {
     position: relative;
 }
 
+[mat-mini-fab] {
+    position: absolute !important;
+    top: 30px;
+    right: 10px;
+}
+
+.bk-project-content2 {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+}
+
 .bk-project-title {
     display: flex;
     align-items: center;
-    position: absolute;
     height: 50px;
     width: 100%;
     background-color: #d1d1d1;
@@ -21,13 +32,17 @@ project-panel {
     text-shadow: rgba(255,255,255,0.5) 0 2px 2px;
 }
 
-[mat-mini-fab] {
-    position: absolute !important;
-    top: 30px;
-    right: 10px;
+.bk-project-content {
+    flex-grow: 1;
+    width: 100%;
+    overflow: scroll;
 }
 
-.bk-project-content {
-    position: absolute;
-    top: 50px;
+.bk-project-item {
+    padding: 10px 15px;
+    font-size: 1.2em;
+}
+
+.bk-project-item:hover {
+    background-color: #6a8dbb;
 }
