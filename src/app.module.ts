@@ -15,6 +15,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {MessagePanelComponent} from "./project/message-panel.component";
 import {CommonModule} from "@angular/common";
 import {PersistenceService} from "./services/persistence.service";
+import {ProjectDetailsComponent} from "./project/project-details.component";
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import {PersistenceService} from "./services/persistence.service";
         SplitComponent,
         MessagePanelComponent,
         ProjectPanelComponent,
-        ProjectConfigComponent
+        ProjectConfigComponent,
+        ProjectDetailsComponent
     ],
     providers: [
         PersistenceService

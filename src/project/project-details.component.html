@@ -1,0 +1,20 @@
+<div class="bk-details-name">{{project.name}}</div>
+<div class="bk-details-details">Details</div>
+<div class="bk-details-content">
+
+    <div class="bk-details-subheader">Source folder:</div>
+    <div class="bk-details-indent">{{project.sourceFolder}}</div>
+    <div class="bk-details-subheader">Destination folder:</div>
+    <div class="bk-details-indent">{{project.destinationFolder}}</div>
+
+    <div *ngIf="!project.patterns || project.patterns.length == 0" class="bk-details-subheader">No exclude patterns defined</div>
+    <div *ngIf="project.patterns &&project.patterns.length != 0">
+        <div class="bk-details-subheader">Exclude patterns:</div>
+        <div class="bk-details-indent">
+            <div *ngFor="let pattern of project.patterns">{{pattern}}</div>
+        </div>
+    </div>
+    <br/>
+    <button mat-raised-button>Edit</button>
+    <button mat-raised-button color="red" (click)="delete()">Delete</button>
+</div>

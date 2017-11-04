@@ -25,4 +25,8 @@ export class ProjectPanelComponent implements OnInit {
     addProject(): void {
         this._router.navigate(['/new-project']);
     }
+
+    projectSelected(index: number) {
+        this._router.navigate(['/project-details/' + index]);
+    }
 }

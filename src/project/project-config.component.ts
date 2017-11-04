@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PersistenceService} from "../services/persistence.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Project} from "../models/project.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {remote} from 'electron';
 
 @Component({
@@ -12,6 +12,7 @@ import {remote} from 'electron';
     providers: []
 })
 export class ProjectConfigComponent implements OnInit {
+    indexProjectSelected: number;
     nameFormGroup: FormGroup;
     configureFormGroup: FormGroup;
     patterns: string[] = [];
@@ -21,9 +22,12 @@ export class ProjectConfigComponent implements OnInit {
 
     constructor(private _persistence: PersistenceService,
                 private _formBuilder: FormBuilder,
-                private _router: Router) {}
+                private _router: Router,
+                private _route: ActivatedRoute) {}
 
     ngOnInit() {
+        this.indexProjectSelected = this._route.snapshot.params['index'];
+        console.log(`indexProjectSelected = ${this.indexProjectSelected}`);
         this.nameFormGroup = this._formBuilder.group({
             nameCtrl: ['', Validators.required]
         });
@@ -32,6 +36,15 @@ export class ProjectConfigComponent implements OnInit {
             destinationFolderCtrl: ['', Validators.required],
             patternCtrl: ''
         });
+
+        if (this.indexProjectSelected) {
+            this.populateForms();
+        }
+    }
+
+    private populateForms() {
+        let project = this._persistence.getProject(this.indexProjectSelected);
+        this.nameFormGroup.get('nameCtrl').setValue(project.name);
     }
 
     addPattern() {
@@ -68,6 +81,9 @@ export class ProjectConfigComponent implements OnInit {
     save() {
         let project = new Project();
         project.name = this.nameFormGroup.controls.nameCtrl.value;
+        project.sourceFolder = this.configureFormGroup.get('sourceFolderCtrl').value;
+        project.destinationFolder = this.configureFormGroup.get('destinationFolderCtrl').value;
+        project.patterns = this.patterns;
         this._persistence.insertProject(project);
         this._router.navigate(['/message/..%2Fimages%2Fic_ok.png/Project%20saved%20correctly.'])
     }
