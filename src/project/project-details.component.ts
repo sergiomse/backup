@@ -23,6 +23,10 @@ export class ProjectDetailsComponent implements OnInit {
         this.project = this._persistence.getProject(this.indexProjectSelected);
     }
 
+    edit() {
+        this._router.navigate([`/edit-project/${this.indexProjectSelected}`]);
+    }
+
     delete() {
         let mainWindow = remote.getCurrentWindow();
         remote.dialog.showMessageBox(mainWindow, {

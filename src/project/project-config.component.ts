@@ -45,6 +45,9 @@ export class ProjectConfigComponent implements OnInit {
     private populateForms() {
         let project = this._persistence.getProject(this.indexProjectSelected);
         this.nameFormGroup.get('nameCtrl').setValue(project.name);
+        this.configureFormGroup.get('sourceFolderCtrl').setValue(project.sourceFolder);
+        this.configureFormGroup.get('destinationFolderCtrl').setValue(project.destinationFolder);
+        this.patterns = project.patterns;
     }
 
     addPattern() {
@@ -84,7 +87,11 @@ export class ProjectConfigComponent implements OnInit {
         project.sourceFolder = this.configureFormGroup.get('sourceFolderCtrl').value;
         project.destinationFolder = this.configureFormGroup.get('destinationFolderCtrl').value;
         project.patterns = this.patterns;
-        this._persistence.insertProject(project);
+        if (this.indexProjectSelected) {
+            this._persistence.updateProject(project, this.indexProjectSelected);
+        } else {
+            this._persistence.insertProject(project);
+        }
         this._router.navigate(['/message/..%2Fimages%2Fic_ok.png/Project%20saved%20correctly.'])
     }
 

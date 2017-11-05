@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Project} from "../models/project.model";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {Router} from "@angular/router";
 
 @Injectable()
 export class PersistenceService {
@@ -31,6 +30,13 @@ export class PersistenceService {
 
     saveProjects(projects: Project[]) {
         localStorage.setItem(this.PROJECTS_ITEM, JSON.stringify(projects));
+    }
+
+    updateProject(project: Project, index: number) {
+        let projects = this.getAllProjects();
+        projects[index] = project;
+        this.saveProjects(projects);
+        this.projects.next(projects);
     }
 
     insertProject(project: Project): void {

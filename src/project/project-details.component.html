@@ -9,12 +9,12 @@
 
     <div *ngIf="!project.patterns || project.patterns.length == 0" class="bk-details-subheader">No exclude patterns defined</div>
     <div *ngIf="project.patterns &&project.patterns.length != 0">
-        <div class="bk-details-subheader">Exclude patterns:</div>
+        <div class="bk-details-subheader">Excluded patterns:</div>
         <div class="bk-details-indent">
             <div *ngFor="let pattern of project.patterns">{{pattern}}</div>
         </div>
     </div>
     <br/>
-    <button mat-raised-button>Edit</button>
+    <button mat-raised-button (click)="edit()">Edit</button>
     <button mat-raised-button color="red" (click)="delete()">Delete</button>
 </div>
