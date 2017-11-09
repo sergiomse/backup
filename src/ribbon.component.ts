@@ -1,17 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
+import {remote} from "electron";
 
 @Component({
     selector: 'bk-ribbon',
     templateUrl: 'ribbon.component.html',
     styleUrls: ['ribbon.component.css']
 })
-export class RibbonComponent implements OnInit {
+export class RibbonComponent {
 
-    ngOnInit(): void {
-        console.log('component initialized');
+    constructor(private _router: Router) {}
+
+    newProject() {
+        this._router.navigate(['/new-project']);
     }
 
-    newProject(): void {
-        console.log('New project');
+    about() {
+        let mainWindow = remote.getCurrentWindow();
+        remote.dialog.showMessageBox(mainWindow, {
+                type: 'info',
+                title: `About Backup Utility`,
+                message: `Aplicación para hacer backups de directorios.\n© Sergio Milla`,
+                buttons: ['Ok']
+            });
     }
 }

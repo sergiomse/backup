@@ -7,40 +7,28 @@
                     project</div>
             </div>
             <div class="bk-ribbon-vertical-button">
-                <div [inlineSVG]="'../images/ic_prueba2.svg'"></div>
-                <div>Prueba<br/>
-                    dos</div>
+                <div [inlineSVG]="'../images/ic_run_selected.svg'"></div>
+                <div>Run<br/>
+                    selected</div>
             </div>
             <div class="bk-ribbon-vertical-button">
-                <div [inlineSVG]="'../images/ic_prueba2.svg'"></div>
-                <div>Prueba<br/>
-                    tres</div>
+                <div [inlineSVG]="'../images/ic_run_all.svg'"></div>
+                <div>Run all</div>
             </div>
         </div>
         <div class="bk-ribbon-group-bottom">
             Main
         </div>
     </div>
-    <div class="bk-ribbon-group">
+    <div class="bk-ribbon-group bk-ribbon-last-group">
         <div class="bk-ribbon-group-top">
-            <div class="bk-ribbon-vertical-button">
-                <div [inlineSVG]="'../images/ic_new_project.svg'"></div>
-                <div>New<br/>
-                    project</div>
-            </div>
-            <div class="bk-ribbon-vertical-button">
-                <div [inlineSVG]="'../images/ic_prueba2.svg'"></div>
-                <div>Prueba<br/>
-                    dos</div>
-            </div>
-            <div class="bk-ribbon-vertical-button">
-                <div [inlineSVG]="'../images/ic_prueba2.svg'"></div>
-                <div>Prueba<br/>
-                    tres</div>
+            <div class="bk-ribbon-vertical-button" (click)="about()">
+                <div [inlineSVG]="'../images/ic_about.svg'"></div>
+                <div>About</div>
             </div>
         </div>
         <div class="bk-ribbon-group-bottom">
-            Main
+            Help
         </div>
     </div>
 </div>

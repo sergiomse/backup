@@ -26,6 +26,10 @@ bk-ribbon {
     border-right: 1px solid white;
 }
 
+.bk-ribbon-last-group {
+    border-right-width: 0;
+}
+
 .bk-ribbon-group-top {
     display: flex;
     flex-flow: row nowrap;
