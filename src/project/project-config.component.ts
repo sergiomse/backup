@@ -17,8 +17,6 @@ export class ProjectConfigComponent implements OnInit {
     configureFormGroup: FormGroup;
     patterns: string[] = [];
     selected = -1;
-    isEditMode = false;
-    fistButtonText = 'Add';
 
     constructor(private _persistence: PersistenceService,
                 private _formBuilder: FormBuilder,
@@ -86,6 +84,7 @@ export class ProjectConfigComponent implements OnInit {
         project.name = this.nameFormGroup.controls.nameCtrl.value;
         project.sourceFolder = this.configureFormGroup.get('sourceFolderCtrl').value;
         project.destinationFolder = this.configureFormGroup.get('destinationFolderCtrl').value;
+        console.log(`patterns = ${this.patterns}`);
         project.patterns = this.patterns;
         if (this.indexProjectSelected) {
             this._persistence.updateProject(project, this.indexProjectSelected);

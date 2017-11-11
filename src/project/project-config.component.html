@@ -1,4 +1,6 @@
 <div class="bk-projects">
+    <h1 *ngIf="indexProjectSelected">Edit project</h1>
+    <h1 *ngIf="!indexProjectSelected">New project</h1>
     <mat-horizontal-stepper [linear]="true">
         <mat-step [stepControl]="nameFormGroup">
             <form [formGroup]="nameFormGroup">
