@@ -5,8 +5,12 @@
         <mat-step [stepControl]="nameFormGroup">
             <form [formGroup]="nameFormGroup">
                 <ng-template matStepLabel>Give it a name</ng-template>
-                <mat-form-field>
-                    <input matInput placeholder="Name" formControlName="nameCtrl" required>
+                <mat-form-field class="bk-project-name">
+                    <input matInput placeholder="Name" formControlName="nameCtrl" required
+                           [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="nameFormGroup.controls.nameCtrl.hasError('required')">
+                        Name is <strong>required</strong>
+                    </mat-error>
                 </mat-form-field>
                 <div>
                     <button mat-raised-button matStepperNext color="accent">Next</button>
@@ -16,20 +20,41 @@
         <mat-step [stepControl]="configureFormGroup">
             <form [formGroup]="configureFormGroup">
                 <ng-template matStepLabel>Configure it</ng-template>
-                <mat-form-field>
-                    <input #sourceFolderCtrl matInput placeholder="Source folder" formControlName="sourceFolderCtrl" required>
-                </mat-form-field>
-                <button mat-raised-button (click)="openDirectoryDialog('sourceFolderCtrl')">...</button>
-                <br/>
-                <mat-form-field>
-                    <input #destinationFolderCtrl matInput placeholder="Destination folder" formControlName="destinationFolderCtrl" required>
-                </mat-form-field>
-                <button mat-raised-button (click)="openDirectoryDialog('destinationFolderCtrl')">...</button>
+                <div class="bk-project-folder">
+                    <mat-form-field>
+                        <input #sourceFolderCtrl matInput placeholder="Source folder" formControlName="sourceFolderCtrl" required
+                               [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="configureFormGroup.controls.sourceFolderCtrl.hasError('required')">
+                            Source folder is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="configureFormGroup.controls.sourceFolderCtrl.hasError('folder')">
+                            Source folder doesn't exist
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button class="bk-project-folder-button" (click)="openDirectoryDialog('sourceFolderCtrl')">...</button>
+                </div>
+                <div class="bk-project-folder">
+                    <mat-form-field>
+                        <input #destinationFolderCtrl matInput placeholder="Destination folder" formControlName="destinationFolderCtrl" required
+                               [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="configureFormGroup.controls.destinationFolderCtrl.hasError('required')">
+                            Source folder is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="configureFormGroup.controls.destinationFolderCtrl.hasError('folder')">
+                            Source folder doesn't exist
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button class="bk-project-folder-button" (click)="openDirectoryDialog('destinationFolderCtrl')">...</button>
+                </div>
                 <mat-card class="bk-project-exclude">
                     <mat-card-title>Excluded folder patterns (RegExp):</mat-card-title>
                     <mat-card-content>
                         <div *ngFor="let pattern of patterns; let i = index" class="bk-pattern-item" [ngClass]="{'bk-patter-item-selected': i == selected}" (click)="selectItem(i)">
-                            <input type="text" value="{{pattern}}" (focus)="$event.target.select();">
+                            <input type="text"
+                                   value="{{pattern}}"
+                                   (focus)="$event.target.select();"
+                                   (keyup.enter)="modifyPattern(i, $event.target.value)"
+                                   (blur)="modifyPattern(i, $event.target.value); selected = -1">
                             <button class="bk-item-delete" mat-raised-button (click)="delete(i)">X</button>
                         </div>
                     </mat-card-content>

@@ -1,9 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {PersistenceService} from "../services/persistence.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {Project} from "../models/project.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {remote} from 'electron';
+import {ErrorStateMatcher} from "@angular/material";
+import * as fs from "fs";
+
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+}
 
 @Component({
     selector: 'project-config',
@@ -18,6 +29,8 @@ export class ProjectConfigComponent implements OnInit {
     patterns: string[] = [];
     selected = -1;
 
+    matcher = new MyErrorStateMatcher();
+
     constructor(private _persistence: PersistenceService,
                 private _formBuilder: FormBuilder,
                 private _router: Router,
@@ -30,8 +43,8 @@ export class ProjectConfigComponent implements OnInit {
             nameCtrl: ['', Validators.required]
         });
         this.configureFormGroup = this._formBuilder.group({
-            sourceFolderCtrl: ['', Validators.required],
-            destinationFolderCtrl: ['', Validators.required],
+            sourceFolderCtrl: ['', [Validators.required, ProjectConfigComponent.folderValidator]],
+            destinationFolderCtrl: ['', [Validators.required, ProjectConfigComponent.folderValidator]],
             patternCtrl: ''
         });
 
@@ -104,5 +117,21 @@ export class ProjectConfigComponent implements OnInit {
                 this.configureFormGroup.get(controlName).setValue(paths[0]);
             }
         });
+    }
+
+    modifyPattern(index: number, value: string) {
+        this.patterns[index] = value;
+    }
+
+    static folderValidator(control: FormControl) {
+        let folder = control.value;
+        if (!fs.existsSync(folder)) {
+            return {folder: 'Folder doesn\'t exists'};
+        }
+        let stats = fs.statSync(folder);
+        if (!stats.isDirectory()) {
+            return {folder: 'Folder is not a directory'};
+        }
+        return null;
     }
 }

@@ -23,6 +23,26 @@ project-config {
     height: 100%;
 }
 
+.bk-project-name {
+    width: 500px;
+}
+
+.bk-project-folder {
+    display: flex;
+}
+
+.bk-project-folder .mat-form-field {
+    flex-grow: 1;
+    max-width: 700px;
+}
+
+.bk-project-folder-button {
+    margin: 5px;
+    height: 30px;
+    align-self: center;
+    min-width: 50px;
+}
+
 .bk-project-exclude {
     margin: 3px;
     background-color: #f6f6f6;
@@ -51,8 +71,14 @@ project-config {
     background-color: transparent;
     cursor: text;
     width: 100%;
+    font-size: 1.1em;
 }
 
 .bk-item-delete {
-    width: 30px;
+    min-width: 50px;
+    height: 30px;
+}
+
+mat-card-footer.mat-card-footer {
+    margin: 0;
 }
