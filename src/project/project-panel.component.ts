@@ -23,10 +23,11 @@ export class ProjectPanelComponent implements OnInit {
     }
 
     addProject(): void {
-        this._router.navigate(['/new-project']);
+        this._router.navigate(['/rerouting/%2Fnew-project']);
     }
 
-    projectSelected(index: number) {
-        this._router.navigate(['/project-details/' + index]);
+    selectProject(index: number) {
+        let url = encodeURIComponent('/project-details/' + index);
+        this._router.navigate(['/rerouting/' + url]);
     }
 }

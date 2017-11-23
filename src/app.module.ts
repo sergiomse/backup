@@ -16,6 +16,7 @@ import {MessagePanelComponent} from "./project/message-panel.component";
 import {CommonModule} from "@angular/common";
 import {PersistenceService} from "./services/persistence.service";
 import {ProjectDetailsComponent} from "./project/project-details.component";
+import {ReroutingComponent} from "./ReroutingComponent";
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import {ProjectDetailsComponent} from "./project/project-details.component";
         MessagePanelComponent,
         ProjectPanelComponent,
         ProjectConfigComponent,
-        ProjectDetailsComponent
+        ProjectDetailsComponent,
+        ReroutingComponent
     ],
     providers: [
         PersistenceService
