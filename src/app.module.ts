@@ -17,6 +17,7 @@ import {CommonModule} from "@angular/common";
 import {PersistenceService} from "./services/persistence.service";
 import {ProjectDetailsComponent} from "./project/project-details.component";
 import {ReroutingComponent} from "./ReroutingComponent";
+import {CanDeactivateGuard} from "./guards/can-deactivate-guard";
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import {ReroutingComponent} from "./ReroutingComponent";
         ReroutingComponent
     ],
     providers: [
-        PersistenceService
+        PersistenceService,
+        CanDeactivateGuard
     ],
     bootstrap: [AppComponent]
 })

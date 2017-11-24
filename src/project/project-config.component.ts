@@ -6,7 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {remote} from 'electron';
 import {ErrorStateMatcher} from "@angular/material";
 import * as fs from "fs";
-
+import {CanComponentDeactivate} from "../guards/can-deactivate-guard";
+import {Observable} from "rxjs/Observable";
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -22,7 +23,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     styleUrls: ['project/project-config.component.css'],
     providers: []
 })
-export class ProjectConfigComponent implements OnInit {
+export class ProjectConfigComponent implements OnInit, CanComponentDeactivate {
     indexProjectSelected: number;
     nameFormGroup: FormGroup;
     configureFormGroup: FormGroup;
@@ -34,7 +35,8 @@ export class ProjectConfigComponent implements OnInit {
     constructor(private _persistence: PersistenceService,
                 private _formBuilder: FormBuilder,
                 private _router: Router,
-                private _route: ActivatedRoute) {}
+                private _route: ActivatedRoute) {
+    }
 
     ngOnInit() {
         this.indexProjectSelected = this._route.snapshot.params['index'];
@@ -73,7 +75,7 @@ export class ProjectConfigComponent implements OnInit {
         try {
             this.patterns.push(pattern);
             this.configureFormGroup.controls.patternCtrl.setValue('');
-        } catch(e) {
+        } catch (e) {
             this.showError(e);
             return;
         }
@@ -110,13 +112,13 @@ export class ProjectConfigComponent implements OnInit {
     openDirectoryDialog(controlName: string) {
         let mainWindow = remote.getCurrentWindow();
         remote.dialog.showOpenDialog(mainWindow, {
-            properties: ['openDirectory']
-        },
-        paths => {
-            if (paths && paths.length > 0) {
-                this.configureFormGroup.get(controlName).setValue(paths[0]);
-            }
-        });
+                properties: ['openDirectory']
+            },
+            paths => {
+                if (paths && paths.length > 0) {
+                    this.configureFormGroup.get(controlName).setValue(paths[0]);
+                }
+            });
     }
 
     modifyPattern(index: number, value: string) {
@@ -133,5 +135,33 @@ export class ProjectConfigComponent implements OnInit {
             return {folder: 'Folder is not a directory'};
         }
         return null;
+    }
+
+    canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
+        let mainWindow = remote.getCurrentWindow();
+        let isDirty = this.nameFormGroup.controls.nameCtrl.dirty ||
+            this.configureFormGroup.controls.sourceFolderCtrl.dirty ||
+            this.configureFormGroup.controls.destinationFolderCtrl.dirty;
+        if (!isDirty) {
+            return true;
+        }
+
+        return new Promise<boolean>((resolve, reject) => {
+            remote.dialog.showMessageBox(mainWindow, {
+                    type: 'warning',
+                    title: `Cambios no guardados`,
+                    message: `Los cambios no han sido guardados. ¿Quiere desecharlos?`,
+                    buttons: ['Sí', 'No']
+                },
+                response => {
+                    console.log(`Button clicked ${response}`);
+                    if (response == 0) {
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                });
+        });
+
     }
 }
