@@ -6,7 +6,8 @@
                 <div>New<br/>
                     project</div>
             </div>
-            <div class="bk-ribbon-vertical-button">
+            <div class="bk-ribbon-vertical-button"
+                 [ngClass]="{'bk-ribbon-button-disable': (_data.getSelectedProject() | async) == -1}" (click)="runSelected()">
                 <div [inlineSVG]="'../images/ic_run_selected.svg'"></div>
                 <div>Run<br/>
                     selected</div>

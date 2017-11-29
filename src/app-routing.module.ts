@@ -3,7 +3,7 @@ import {ProjectConfigComponent} from "./project/project-config.component";
 import {NgModule} from "@angular/core";
 import {MessagePanelComponent} from "./project/message-panel.component";
 import {ProjectDetailsComponent} from "./project/project-details.component";
-import {ReroutingComponent} from "./ReroutingComponent";
+import {ReroutingComponent} from "./rerouting.component";
 import {CanDeactivateGuard} from "./guards/can-deactivate-guard";
 
 const appRoutes: Routes = [

@@ -55,8 +55,25 @@ bk-ribbon {
     color: #6a8dbb;
 }
 
+.bk-ribbon-button-disable {
+    color: #b2b2b2;
+}
+
+.bk-ribbon-button-disable:hover {
+    background-color: initial;
+    color: #b2b2b2;
+}
+
 .bk-ribbon-vertical-button:hover .st0 {
     fill: #6a8dbb !important;
+}
+
+.bk-ribbon-button-disable .st0 {
+    fill: #b2b2b2 !important;
+}
+
+.bk-ribbon-button-disable:hover .st0 {
+    fill: #b2b2b2 !important;
 }
 
 .bk-ribbon-vertical-button img {

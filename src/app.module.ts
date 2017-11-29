@@ -16,8 +16,9 @@ import {MessagePanelComponent} from "./project/message-panel.component";
 import {CommonModule} from "@angular/common";
 import {PersistenceService} from "./services/persistence.service";
 import {ProjectDetailsComponent} from "./project/project-details.component";
-import {ReroutingComponent} from "./ReroutingComponent";
+import {ReroutingComponent} from "./rerouting.component";
 import {CanDeactivateGuard} from "./guards/can-deactivate-guard";
+import {DataService} from "./services/data.service";
 
 @NgModule({
     imports: [
@@ -48,6 +49,7 @@ import {CanDeactivateGuard} from "./guards/can-deactivate-guard";
     ],
     providers: [
         PersistenceService,
+        DataService,
         CanDeactivateGuard
     ],
     bootstrap: [AppComponent]

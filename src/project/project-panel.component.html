@@ -3,7 +3,12 @@
         <div>PROJECTS</div>
     </div>
     <div class="bk-project-content">
-        <div *ngFor="let project of projects | async; let i = index" class="bk-project-item" (click)="selectProject(i)">{{project.name}}</div>
+        <div *ngFor="let project of projects | async; let i = index" class="bk-project-item" (click)="selectProject(i)"
+             [ngClass]="{'bk-project-item-selected': selected == i}">
+            <img class="bk-project-running" src="../images/ic_loading.png" *ngIf="isRunning(i, (_data.getRunningProjects() | async))"/>
+            &nbsp;
+            {{project.name}}
+    </div>
     </div>
 </div>
 <button mat-mini-fab color="accent" aria-label="Add project" (click)="addProject()">+</button>

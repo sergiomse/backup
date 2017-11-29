@@ -7,7 +7,8 @@
     <div class="bk-details-subheader">Destination folder:</div>
     <div class="bk-details-indent">{{project.destinationFolder}}</div>
 
-    <div *ngIf="!project.patterns || project.patterns.length == 0" class="bk-details-subheader">No exclude patterns defined</div>
+    <div *ngIf="!project.patterns || project.patterns.length == 0"
+         class="bk-details-subheader">No exclude patterns defined</div>
     <div *ngIf="project.patterns &&project.patterns.length != 0">
         <div class="bk-details-subheader">Excluded patterns:</div>
         <div class="bk-details-indent">
@@ -15,6 +16,8 @@
         </div>
     </div>
     <br/>
-    <button mat-raised-button (click)="edit()">Edit</button>
-    <button mat-raised-button color="red" (click)="delete()">Delete</button>
+    <button mat-raised-button [disabled]="isDisabled(_data.getRunningProjects() | async)"
+            (click)="edit()">Edit</button>
+    <button mat-raised-button [disabled]="isDisabled(_data.getRunningProjects() | async)"
+            (click)="delete()">Delete</button>
 </div>

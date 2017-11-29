@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {PersistenceService} from "../services/persistence.service";
 import {Project} from "../models/project.model";
 import {remote} from 'electron';
+import {DataService} from "../services/data.service";
 
 @Component({
     selector: 'project-details',
@@ -16,7 +17,8 @@ export class ProjectDetailsComponent implements OnInit {
 
     constructor(private _route: ActivatedRoute,
                 private _router: Router,
-                private _persistence: PersistenceService) {}
+                private _persistence: PersistenceService,
+                private _data: DataService) {}
 
     ngOnInit(): void {
         this.indexProjectSelected = this._route.snapshot.params['index'];
@@ -39,8 +41,17 @@ export class ProjectDetailsComponent implements OnInit {
                 console.log(`Button clicked ${response}`);
                 if (response == 0) {
                     this._persistence.deleteProject(this.indexProjectSelected);
+                    this._data.setSelectedProject(-1);
                     this._router.navigate(['/message/..%2Fimages%2Fic_ok.png/Project%20deleted%20correctly.']);
                 }
             });
+    }
+
+    isDisabled(runningProjects: Array<number>) {
+        let isRunning = false;
+        runningProjects.forEach(i => {
+            if (this.indexProjectSelected == i) isRunning = true;
+        });
+        return isRunning;
     }
 }

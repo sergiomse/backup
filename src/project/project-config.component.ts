@@ -29,6 +29,7 @@ export class ProjectConfigComponent implements OnInit, CanComponentDeactivate {
     configureFormGroup: FormGroup;
     patterns: string[] = [];
     selected = -1;
+    isSaving = false;
 
     matcher = new MyErrorStateMatcher();
 
@@ -106,6 +107,7 @@ export class ProjectConfigComponent implements OnInit, CanComponentDeactivate {
         } else {
             this._persistence.insertProject(project);
         }
+        this.isSaving = true;
         this._router.navigate(['/message/..%2Fimages%2Fic_ok.png/Project%20saved%20correctly.'])
     }
 
@@ -138,7 +140,10 @@ export class ProjectConfigComponent implements OnInit, CanComponentDeactivate {
     }
 
     canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
-        let mainWindow = remote.getCurrentWindow();
+        if (this.isSaving) {
+            return true;
+        }
+
         let isDirty = this.nameFormGroup.controls.nameCtrl.dirty ||
             this.configureFormGroup.controls.sourceFolderCtrl.dirty ||
             this.configureFormGroup.controls.destinationFolderCtrl.dirty;
@@ -147,6 +152,7 @@ export class ProjectConfigComponent implements OnInit, CanComponentDeactivate {
         }
 
         return new Promise<boolean>((resolve, reject) => {
+            let mainWindow = remote.getCurrentWindow();
             remote.dialog.showMessageBox(mainWindow, {
                     type: 'warning',
                     title: `Cambios no guardados`,

@@ -3,6 +3,7 @@ import {PersistenceService} from "../services/persistence.service";
 import {Router} from "@angular/router";
 import {Project} from "../models/project.model";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {DataService} from "../services/data.service";
 
 @Component({
     selector: 'project-panel',
@@ -15,7 +16,8 @@ export class ProjectPanelComponent implements OnInit {
     projects: BehaviorSubject<Array<Project>>;
 
     constructor(private _persistence: PersistenceService,
-                private _router: Router) {
+                private _router: Router,
+                private _data: DataService) {
     }
 
     ngOnInit(): void {
@@ -23,11 +25,35 @@ export class ProjectPanelComponent implements OnInit {
     }
 
     addProject(): void {
+        this.selected = -1;
         this._router.navigate(['/rerouting/%2Fnew-project']);
     }
 
     selectProject(index: number) {
-        let url = encodeURIComponent('/project-details/' + index);
-        this._router.navigate(['/rerouting/' + url]);
+        if (index != this.selected) {
+            let url = encodeURIComponent('/project-details/' + index);
+            this._router.navigate(['/rerouting/' + url])
+                .then(completed => {
+                    if (completed) {
+                        this.selected = index;
+                    }
+                });
+        }
+    }
+
+    set selected(index: number) {
+        this._data.setSelectedProject(index);
+    }
+
+    get selected(): number {
+        return this._data.getSelectedProject().getValue();
+    }
+
+    isRunning(index: number, projects: number[]) {
+        let isRunning = false;
+        projects.forEach(i => {
+            if (index == i) isRunning = true;
+        });
+        return isRunning;
     }
 }
