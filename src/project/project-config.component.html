@@ -1,82 +1,91 @@
 <div class="bk-projects">
-    <h1 *ngIf="indexProjectSelected">Edit project</h1>
-    <h1 *ngIf="!indexProjectSelected">New project</h1>
-    <mat-horizontal-stepper [linear]="true">
-        <mat-step [stepControl]="nameFormGroup">
-            <form [formGroup]="nameFormGroup">
-                <ng-template matStepLabel>Give it a name</ng-template>
-                <mat-form-field class="bk-project-name">
-                    <input matInput placeholder="Name" formControlName="nameCtrl" required
-                           [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="nameFormGroup.controls.nameCtrl.hasError('required')">
-                        Name is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-                <div>
-                    <button mat-raised-button matStepperNext color="accent">Next</button>
-                </div>
-            </form>
-        </mat-step>
-        <mat-step [stepControl]="configureFormGroup">
-            <form [formGroup]="configureFormGroup">
-                <ng-template matStepLabel>Configure it</ng-template>
-                <div class="bk-project-folder">
-                    <mat-form-field>
-                        <input #sourceFolderCtrl matInput placeholder="Source folder" formControlName="sourceFolderCtrl" required
+    <div class="bk-projects-container">
+        <h1 *ngIf="indexProjectSelected">Edit project</h1>
+        <h1 *ngIf="!indexProjectSelected">New project</h1>
+        <mat-horizontal-stepper [linear]="true">
+            <mat-step [stepControl]="nameFormGroup">
+                <form [formGroup]="nameFormGroup">
+                    <ng-template matStepLabel>Give it a name</ng-template>
+                    <mat-form-field class="bk-project-name">
+                        <input matInput placeholder="Name" formControlName="nameCtrl" required
                                [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="configureFormGroup.controls.sourceFolderCtrl.hasError('required')">
-                            Source folder is <strong>required</strong>
-                        </mat-error>
-                        <mat-error *ngIf="configureFormGroup.controls.sourceFolderCtrl.hasError('folder')">
-                            Source folder doesn't exist
+                        <mat-error *ngIf="nameFormGroup.controls.nameCtrl.hasError('required')">
+                            Name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
-                    <button mat-raised-button class="bk-project-folder-button" (click)="openDirectoryDialog('sourceFolderCtrl')">...</button>
-                </div>
-                <div class="bk-project-folder">
-                    <mat-form-field>
-                        <input #destinationFolderCtrl matInput placeholder="Destination folder" formControlName="destinationFolderCtrl" required
-                               [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="configureFormGroup.controls.destinationFolderCtrl.hasError('required')">
-                            Source folder is <strong>required</strong>
-                        </mat-error>
-                        <mat-error *ngIf="configureFormGroup.controls.destinationFolderCtrl.hasError('folder')">
-                            Source folder doesn't exist
-                        </mat-error>
-                    </mat-form-field>
-                    <button mat-raised-button class="bk-project-folder-button" (click)="openDirectoryDialog('destinationFolderCtrl')">...</button>
-                </div>
-                <mat-card class="bk-project-exclude">
-                    <mat-card-title>Excluded folder patterns (RegExp):</mat-card-title>
-                    <mat-card-content>
-                        <div *ngFor="let pattern of patterns; let i = index" class="bk-pattern-item" [ngClass]="{'bk-patter-item-selected': i == selected}" (click)="selectItem(i)">
-                            <input type="text"
-                                   value="{{pattern}}"
-                                   (focus)="$event.target.select();"
-                                   (keyup.enter)="modifyPattern(i, $event.target.value)"
-                                   (blur)="modifyPattern(i, $event.target.value); selected = -1">
-                            <button class="bk-item-delete" mat-raised-button (click)="delete(i)">X</button>
-                        </div>
-                    </mat-card-content>
-                    <mat-card-footer>
+                    <div class="bk-footer-buttons">
+                        <button mat-raised-button matStepperNext color="accent">Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="configureFormGroup">
+                <form [formGroup]="configureFormGroup">
+                    <ng-template matStepLabel>Configure it</ng-template>
+                    <div class="bk-project-folder">
                         <mat-form-field>
-                            <input matInput placeholder="New pattern" formControlName="patternCtrl">
+                            <input #sourceFolderCtrl matInput placeholder="Source folder"
+                                   formControlName="sourceFolderCtrl" required
+                                   [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="configureFormGroup.controls.sourceFolderCtrl.hasError('required')">
+                                Source folder is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="configureFormGroup.controls.sourceFolderCtrl.hasError('folder')">
+                                Source folder doesn't exist
+                            </mat-error>
                         </mat-form-field>
-                        <button mat-raised-button (click)="addPattern()">Add</button>
-                    </mat-card-footer>
-                </mat-card>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                        <button mat-raised-button class="bk-project-folder-button"
+                                (click)="openDirectoryDialog('sourceFolderCtrl')">...
+                        </button>
+                    </div>
+                    <div class="bk-project-folder">
+                        <mat-form-field>
+                            <input #destinationFolderCtrl matInput placeholder="Destination folder"
+                                   formControlName="destinationFolderCtrl" required
+                                   [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="configureFormGroup.controls.destinationFolderCtrl.hasError('required')">
+                                Source folder is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="configureFormGroup.controls.destinationFolderCtrl.hasError('folder')">
+                                Source folder doesn't exist
+                            </mat-error>
+                        </mat-form-field>
+                        <button mat-raised-button class="bk-project-folder-button"
+                                (click)="openDirectoryDialog('destinationFolderCtrl')">...
+                        </button>
+                    </div>
+                    <mat-card class="bk-project-exclude">
+                        <mat-card-title>Excluded folder patterns (RegExp):</mat-card-title>
+                        <mat-card-content>
+                            <div *ngFor="let pattern of patterns; let i = index" class="bk-pattern-item"
+                                 [ngClass]="{'bk-patter-item-selected': i == selected}" (click)="selectItem(i)">
+                                <input type="text"
+                                       value="{{pattern}}"
+                                       (focus)="$event.target.select();"
+                                       (keyup.enter)="modifyPattern(i, $event.target.value)"
+                                       (blur)="modifyPattern(i, $event.target.value); selected = -1">
+                                <button class="bk-item-delete" mat-raised-button (click)="delete(i)">X</button>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-footer>
+                            <mat-form-field>
+                                <input matInput placeholder="New pattern" formControlName="patternCtrl">
+                            </mat-form-field>
+                            <button mat-raised-button (click)="addPattern()">Add</button>
+                        </mat-card-footer>
+                    </mat-card>
+                    <div class="bk-footer-buttons">
+                        <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="accent" matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                Save to done
+                <div class="bk-footer-buttons">
+                    <button mat-raised-button color="accent" (click)="save()">Save</button>
                 </div>
-            </form>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            Save to done
-            <div>
-                <button mat-button (click)="save()">Save</button>
-            </div>
-        </mat-step>
-    </mat-horizontal-stepper>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
 </div>
