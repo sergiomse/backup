@@ -1,3 +1,9 @@
+project-details {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+}
+
 .bk-details-name {
     background-color: #3f51b5;
     padding: 10px 30px;
@@ -15,6 +21,7 @@
 
 .bk-details-content {
     padding: 30px;
+    overflow: auto;
 }
 
 .bk-details-subheader {
