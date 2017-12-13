@@ -49,7 +49,8 @@ project-config {
     min-width: 50px;
 }
 
-.bk-project-exclude {
+.bk-project-exclude.mat-card {
+    position: initial;
     margin: 3px;
     background-color: #f6f6f6;
 }
