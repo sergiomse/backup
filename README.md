@@ -3,8 +3,18 @@ Backup Utility Application *(Beta)*
 
 With this utility you can make directory backups easily and intuitively.
 
-![Screenshot](./docs/images/new-project.png)
+<img src="./docs/images/new-project.png" alt="Screenshot" width="600"/>
 
-![Screenshot](./docs/images/details.png)
+<img src="./docs/images/details.png" alt="Screenshot" width="600"/>
 
-*WARNING:* The software is in Beta status and may have failures. It also lacks many features, so do not use on important files.
+
+## Running
+
+Open a terminal inside a folder where you want to clone the sources.
+
+    > git clone https://github.com/smillase/backup.git
+    > npm install
+    > npm install -g electron-forge
+    > electron-forge start
+
+*WARNING:* This software is in Beta phase and may have failures. It also lacks many features, so do not use on important files.
