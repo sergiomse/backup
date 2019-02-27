@@ -13,6 +13,7 @@ With this utility you can make directory backups easily and intuitively.
 Open a terminal inside a folder where you want to clone the sources.
 
     > git clone https://github.com/smillase/backup.git
+    > cd backup
     > npm install
     > npm install -g electron-forge
     > electron-forge start
